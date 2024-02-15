@@ -1,0 +1,27 @@
+syntax = "proto3";
+package gokafkalite.v1;
+option go_package = "github.com/sjy-dv/gokafka-lite/rpc/generated;protocol";
+import "v1/actor.proto";
+
+service Remote {
+	rpc Receive(stream Envelope) returns (stream Envelope) {}
+} 
+
+message Envelope {
+	repeated string typeNames = 1;
+	repeated PID targets = 2;
+	repeated PID senders = 3;
+	repeated Message messages = 4;
+	// TODO: serializer id
+}
+
+message Message {
+	bytes data = 1;
+	int32 targetIndex = 2;
+	int32 senderIndex = 3;
+	int32 typeNameIndex = 4;
+}
+
+message TestMessage { 
+	bytes data = 1;
+}

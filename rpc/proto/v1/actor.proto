@@ -1,0 +1,16 @@
+syntax = "proto3";
+package gokafkalite.v1;
+option go_package = "github.com/sjy-dv/gokafka-lite/rpc/generated;protocol";
+
+message PID {
+	string address = 1;
+	string ID = 2;
+}
+
+message Ping {
+	PID from = 1;  
+}
+
+message Pong {
+	PID from = 1;
+}

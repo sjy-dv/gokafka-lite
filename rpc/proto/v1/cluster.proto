@@ -1,0 +1,72 @@
+syntax = "proto3";
+package gokafkalite.v1;
+option go_package = "github.com/sjy-dv/gokafka-lite/rpc/generated;protocol";
+import "v1/actor.proto";
+
+message CID {
+	PID PID = 1;
+	string ID = 2;
+	string kind = 3;
+	string region = 4;
+}
+
+message Member {
+	string ID = 1;
+	string host = 2;
+	string region = 3;
+	repeated string kinds = 4;
+}
+
+message Members {
+	repeated Member members = 1;
+} 
+
+// TODO: Deprecated
+message MembersJoin {
+	repeated Member members = 1;
+}
+
+message MembersLeave {
+	repeated Member members = 1;
+}
+
+message Handshake {
+	Member Member = 1;
+}
+ 
+message Topology {
+	uint64 hash = 1;
+	repeated Member members = 2;
+	repeated Member left = 3;
+	repeated Member joined = 4;
+	repeated Member blocked = 5;
+}
+
+message ActorInfo {
+	PID PID = 2;
+}
+
+message ActorTopology {
+	repeated ActorInfo actors = 1; 
+}
+
+message Activation {
+	PID PID = 1;
+}
+
+message Deactivation {
+	PID PID = 1;
+}
+
+message ActivationRequest {
+	string Kind = 1;
+	string ID = 2;
+	string Region = 3;
+	uint64 topologyHash = 4;
+}
+
+message ActivationResponse {
+	PID PID = 1;
+	bool success = 2;
+	uint64 topologyHash = 3;
+}
